@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  // Variables
   var choices = ['rock', 'paper', 'scissors']
   var scores = {win: 0, lose: 0, tie: 0 }
 
@@ -6,15 +7,9 @@ $(document).ready(function() {
   var computerSelection
   var result
 
-  var $buttons = $('.selection')
-
-  var $computerChoiceText = $('#computerChoiceText')
   var $winnerText = $('#winnerText')
 
-  var $winsText = $('#winsText')
-  var $lossesText = $('#lossesText')
-  var $tiesText = $('#tiesText')
-
+  // Functions
   function processClick(e) {
     userSelection = e.target.id
     computerSelection = computerGenSelection()
@@ -28,8 +23,9 @@ $(document).ready(function() {
   }
 
   function compareSelections() {
-    if(userSelection === computerSelection)
+    if(userSelection === computerSelection) {
       return 'tie'
+    }
 
     switch(userSelection) {
       case 'rock':
@@ -48,7 +44,7 @@ $(document).ready(function() {
   }
 
   function showResult() {
-    $computerChoiceText.text('The computer chose ' + computerSelection + '!')
+    $('#computerChoiceText').text('The computer chose ' + computerSelection + '!')
 
     $winnerText.removeClass()
     if(result === 'win') {
@@ -61,21 +57,22 @@ $(document).ready(function() {
 
     $winnerText.text('You ' + result + '!')
 
-    $winsText.text('Wins: ' + scores.win + ' - ' + ((scores.win / totalGames()) * 100).toFixed(2) + '%')
-    $lossesText.text('Losses: ' + scores.lose + ' - ' + ((scores.lose / totalGames()) * 100).toFixed(2) + '%')
-    $tiesText.text('Ties: ' + scores.tie + ' - ' + ((scores.tie / totalGames()) * 100).toFixed(2) + '%')
+    $('#winsText').text('Wins: ' + scores.win + ' - ' + ((scores.win / totalGames()) * 100).toFixed(2) + '%')
+    $('#lossesText').text('Losses: ' + scores.lose + ' - ' + ((scores.lose / totalGames()) * 100).toFixed(2) + '%')
+    $('#tiesText').text('Ties: ' + scores.tie + ' - ' + ((scores.tie / totalGames()) * 100).toFixed(2) + '%')
   }
 
-  $buttons.each(function (index, entry) {
+  // Listeners
+  $('.selection').each(function (index, entry) {
     $(entry).on('click', processClick)
   })
 
   $('#resetButton').on('click', function() {
     scores.win = 0, scores.lose = 0, scores.tie = 0
-    $winsText.text('Wins: 0 - 0%')
-    $lossesText.text('Losses: 0 - 0%')
-    $tiesText.text('Ties: 0 - 0%')
-    $computerChoiceText.text('')
+    $('#winsText').text('Wins: 0 - 0%')
+    $('#lossesText').text('Losses: 0 - 0%')
+    $('#tiesText').text('Ties: 0 - 0%')
+    $('#computerChoiceText').text('')
     $winnerText.text('')
   })
 })
